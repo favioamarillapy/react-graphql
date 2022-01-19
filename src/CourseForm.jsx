@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "./hooks/useForm";
-import { GET_COURSES } from "./App";
+import { GET_COURSES } from "./courses/graphql/queries-courses";
 
 const ADD_COURSE = gql`
   mutation ($input: CourseInput!) {

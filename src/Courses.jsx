@@ -1,25 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { gql, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import CourseDetail from "./CourseDetail";
-
-const GET_COURSE = gql`
-  query getCourse($id: ID!) {
-    getCourse(id: $id) {
-      _id
-      title
-      teacher
-      description
-      level
-      topic
-      students {
-        _id
-        name
-        email
-        avatar
-      }
-    }
-  }
-`;
+import { GET_COURSE } from "./courses/graphql/queries-courses";
 
 function Courses({ courses, loading }) {
   const [loadCourse, { data: courseData }] = useLazyQuery(GET_COURSE);
