@@ -1,9 +1,9 @@
-import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { gql, useLazyQuery } from "@apollo/client";
 
-const GET_COURSES = gql`
-  query getCourses {
-    getCourses {
+const GET_COURSE = gql`
+  query getCourse($id: ID!) {
+    getCourse(id: $id) {
       _id
       title
       teacher
@@ -20,10 +20,57 @@ const GET_COURSES = gql`
   }
 `;
 
-function Courses() {
-  const { data, error, loading } = useQuery(GET_COURSES);
+function Courses({ courses, loading }) {
+  const [loadCourse, { data: courseData }] = useLazyQuery(GET_COURSE);
 
-  if (error) return <span className="text-danger">{error}</span>;
+  const [course, setCourse] = useState(null);
+
+  const showPerson = (id) => {
+    loadCourse({
+      variables: { id: id },
+    });
+  };
+
+  useEffect(() => {
+    if (courseData?.getCourse) {
+      setCourse(courseData?.getCourse);
+    }
+  }, [courseData]);
+
+  if (course) {
+    return (
+      <div>
+        <h2>{course?.title}</h2>
+
+        <div>
+          <strong>Descriptions:</strong> <span>{course?.description}</span>
+        </div>
+
+        <div>
+          <strong>Teacher:</strong> <span>{course?.teacher}</span>
+        </div>
+
+        <div>
+          <strong>Topic:</strong> <span>{course?.topic}</span>
+        </div>
+
+        <div>
+          <strong>Students:</strong> <span>{course?.students.length}</span>
+        </div>
+
+        <div className="mt-3">
+          <button
+            className="btn btn-outline-danger"
+            onClick={() => {
+              setCourse(null);
+            }}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -31,12 +78,20 @@ function Courses() {
         <p>Loading....</p>
       ) : (
         <div className="row">
-          {data &&
-            data.getCourses.map((c) => (
-              <div key={c.id} className="col-md-3 mt-3">
+          {courses &&
+            courses.map((c) => (
+              <div key={c._id} className="col-md-3 mt-3">
                 <div className="border rounded p-2">
-                  <strong>{c.title}</strong>
-                  <p>{c.description}</p>
+                  <p>{c.title}</p>
+
+                  <a
+                    className="view-more"
+                    onClick={() => {
+                      showPerson(c._id);
+                    }}
+                  >
+                    View more....
+                  </a>
                 </div>
               </div>
             ))}

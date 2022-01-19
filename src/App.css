@@ -40,3 +40,8 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.view-more {
+  text-decoration: none;
+  cursor: pointer;
+}
