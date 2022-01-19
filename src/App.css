@@ -45,3 +45,7 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
+
+form {
+  text-align: left;
+}

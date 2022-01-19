@@ -2,8 +2,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import Courses from "./Courses";
 import { gql, useQuery } from "@apollo/client";
+import CourseForm from "./CourseForm";
 
-const GET_COURSES = gql`
+export const GET_COURSES = gql`
   query {
     getCourses {
       _id
@@ -34,6 +35,8 @@ function App() {
         <p className="App-header-title">Hello Vite + React + GraphQL!</p>
 
         <Courses courses={data?.getCourses} loading={loading} />
+
+        <CourseForm />
       </header>
     </div>
   );
