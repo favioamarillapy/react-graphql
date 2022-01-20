@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import CourseDetail from "./CourseDetail";
-import { GET_COURSE } from "../../graphql/courses/queries";
+import { GET_COURSE } from "../../graphql/courses/queries-courses";
 
 function Courses({ courses, loading }) {
   const [loadCourse, { data: courseData }] = useLazyQuery(GET_COURSE);
@@ -46,7 +46,7 @@ function Courses({ courses, loading }) {
         <div className="row">
           {courses &&
             courses.map((c) => (
-              <div key={c._id} className="col-md-3 mt-3">
+              <div key={c._id} className="col-md-4 mt-3">
                 <div className="border rounded p-2">
                   <p>{c.title}</p>
 

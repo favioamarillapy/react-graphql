@@ -1,9 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useQuery } from "@apollo/client";
-import { GET_COURSES } from "./graphql/courses/queries";
 import Courses from "./components/Course/Courses";
 import CourseForm from "./components/Course/CourseForm";
+import { GET_COURSES } from "./graphql/courses/queries-courses";
 
 function App() {
   const { data, error, loading } = useQuery(GET_COURSES);
@@ -16,9 +16,15 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p className="App-header-title">Hello Vite + React + GraphQL!</p>
 
-        <Courses courses={data?.getCourses} loading={loading} />
+        <div className="row">
+          <div className="col-md-8">
+            <Courses courses={data?.getCourses} loading={loading} />
+          </div>
 
-        <CourseForm />
+          <div className="col-md-4">
+            <CourseForm />
+          </div>
+        </div>
       </header>
     </div>
   );

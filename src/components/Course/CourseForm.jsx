@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_COURSE } from "../../graphql/courses/mutations";
-import { GET_COURSES } from "../../graphql/courses/queries";
+import { GET_COURSES } from "../../graphql/courses/queries-courses";
 import { useForm } from "../../hooks/useForm";
 
 const COURSE_INPUT = {
@@ -32,8 +32,9 @@ const CourseForm = () => {
 
   return (
     <div className="p-3">
-      <h2>New Course</h2>
-      <form className="col-md-5" onSubmit={handleSubmit}>
+      <h4>New Course</h4>
+      <hr />
+      <form className="col-md-12" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Title</label>
           <input
