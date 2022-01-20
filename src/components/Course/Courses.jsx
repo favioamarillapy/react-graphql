@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import CourseDetail from "./CourseDetail";
+import CourseForm from "./CourseForm";
 import { GET_COURSE } from "../../graphql/courses/queries-courses";
+import CourseCard from "./CourseCard";
 
 function Courses({ courses, loading }) {
   const [loadCourse, { data: courseData }] = useLazyQuery(GET_COURSE);
@@ -21,21 +23,7 @@ function Courses({ courses, loading }) {
   }, [courseData]);
 
   if (course) {
-    return (
-      <>
-        <CourseDetail course={course} />
-        <div className="mt-3">
-          <button
-            className="btn btn-outline-danger"
-            onClick={() => {
-              setCourse(null);
-            }}
-          >
-            Close
-          </button>
-        </div>
-      </>
-    );
+    return <CourseDetail course={course} setCourse={setCourse} />;
   }
 
   return (
@@ -43,25 +31,20 @@ function Courses({ courses, loading }) {
       {loading ? (
         <p>Loading....</p>
       ) : (
-        <div className="row">
-          {courses &&
-            courses.map((c) => (
-              <div key={c._id} className="col-md-4 mt-3">
-                <div className="border rounded p-2">
-                  <p>{c.title}</p>
+        <>
+          <div className="col-md-8">
+            <div className="row">
+              {courses &&
+                courses.map((c) => (
+                  <CourseCard key={c._id} course={c} showPerson={showPerson} />
+                ))}
+            </div>
+          </div>
 
-                  <a
-                    className="view-more"
-                    onClick={() => {
-                      showPerson(c._id);
-                    }}
-                  >
-                    View more....
-                  </a>
-                </div>
-              </div>
-            ))}
-        </div>
+          <div className="col-md-4">
+            <CourseForm />
+          </div>
+        </>
       )}
     </>
   );
