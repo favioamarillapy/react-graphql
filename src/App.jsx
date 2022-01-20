@@ -1,9 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useQuery } from "@apollo/client";
-import Courses from "./Courses";
-import CourseForm from "./CourseForm";
-import { GET_COURSES } from "./courses/graphql/queries-courses";
+import { GET_COURSES } from "./graphql/courses/queries";
+import Courses from "./components/Course/Courses";
+import CourseForm from "./components/Course/CourseForm";
 
 function App() {
   const { data, error, loading } = useQuery(GET_COURSES);

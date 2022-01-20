@@ -1,26 +1,8 @@
 import React from "react";
-import { gql, useMutation } from "@apollo/client";
-import { useForm } from "./hooks/useForm";
-import { GET_COURSES } from "./courses/graphql/queries-courses";
-
-const ADD_COURSE = gql`
-  mutation ($input: CourseInput!) {
-    createCourse(input: $input) {
-      _id
-      title
-      description
-      topic
-      teacher
-      level
-      students {
-        _id
-        name
-        avatar
-        email
-      }
-    }
-  }
-`;
+import { useMutation } from "@apollo/client";
+import { ADD_COURSE } from "../../graphql/courses/mutations";
+import { GET_COURSES } from "../../graphql/courses/queries";
+import { useForm } from "../../hooks/useForm";
 
 const COURSE_INPUT = {
   title: "",

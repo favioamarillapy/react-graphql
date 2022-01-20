@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import CourseDetail from "./CourseDetail";
-import { GET_COURSE } from "./courses/graphql/queries-courses";
+import { GET_COURSE } from "../../graphql/courses/queries";
 
 function Courses({ courses, loading }) {
   const [loadCourse, { data: courseData }] = useLazyQuery(GET_COURSE);
